@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8c8dc" />
+  <title>A Little Surprise for Hemangi 💗</title>
+  <style>
+    :root{
+      --pink:#ff7eb6;
+      --deep:#d94f8a;
+      --rose:#ffb3cf;
+      --cream:#fff8fb;
+      --text:#5a3650;
+      --card:rgba(255,255,255,.78);
+    }
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      overflow-x:hidden;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,.95), transparent 28%),
+        radial-gradient(circle at 90% 10%, rgba(255,220,235,.9), transparent 32%),
+        linear-gradient(145deg, #fff8fb, #ffd9e8 48%, #f9c5d8);
+    }
+
+    .sparkles, .hearts{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+    }
+
+    .heart{
+      position:absolute;
+      bottom:-40px;
+      opacity:.65;
+      animation:floatUp linear infinite;
+      filter:drop-shadow(0 4px 10px rgba(217,79,138,.18));
+    }
+
+    @keyframes floatUp{
+      from{transform:translateY(0) rotate(0deg) scale(.8)}
+      to{transform:translateY(-115vh) rotate(360deg) scale(1.25)}
+    }
+
+    .spark{
+      position:absolute;
+      width:5px;
+      height:5px;
+      border-radius:50%;
+      background:#fff;
+      box-shadow:0 0 12px 4px rgba(255,255,255,.8);
+      animation:twinkle 2.3s ease-in-out infinite;
+    }
+
+    @keyframes twinkle{
+      0%,100%{opacity:.15; transform:scale(.6)}
+      50%{opacity:1; transform:scale(1.25)}
+    }
+
+    main{
+      position:relative;
+      z-index:1;
+      min-height:100vh;
+      padding:24px 16px 60px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .wrap{
+      width:min(760px, 100%);
+      text-align:center;
+    }
+
+    .envelope{
+      margin:0 auto 24px;
+      width:110px;
+      height:78px;
+      position:relative;
+      cursor:pointer;
+      animation:bob 2.8s ease-in-out infinite;
+    }
+
+    @keyframes bob{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
+    }
+
+    .env-body{
+      position:absolute;
+      inset:14px 0 0;
+      background:linear-gradient(135deg,#ff9fc7,#ff6fa8);
+      border-radius:8px;
+      box-shadow:0 16px 35px rgba(217,79,138,.25);
+      overflow:hidden;
+    }
+
+    .env-body::before,.env-body::after{
+      content:"";
+      position:absolute;
+      top:0;
+      width:70px;
+      height:70px;
+      background:#ffb2d0;
+      transform:rotate(45deg);
+    }
+
+    .env-body::before{left:-35px}
+    .env-body::after{right:-35px}
+
+    .flap{
+      position:absolute;
+      top:14px;
+      left:0;
+      width:0;
+      height:0;
+      border-left:55px solid transparent;
+      border-right:55px solid transparent;
+      border-top:42px solid #ff7eb6;
+      transform-origin:top;
+      transition:.6s ease;
+      z-index:2;
+    }
+
+    .envelope.open .flap{
+      transform:rotateX(180deg);
+    }
+
+    .letter-peek{
+      position:absolute;
+      left:14px;
+      right:14px;
+      top:4px;
+      height:50px;
+      background:white;
+      border-radius:6px 6px 0 0;
+      transition:.6s ease;
+      z-index:1;
+    }
+
+    .envelope.open .letter-peek{
+      transform:translateY(-24px);
+    }
+
+    .tap-note{
+      font-size:.9rem;
+      opacity:.72;
+      margin-top:8px;
+    }
+
+    .card{
+      background:var(--card);
+      backdrop-filter:blur(16px);
+      border:1px solid rgba(255,255,255,.7);
+      box-shadow:0 22px 60px rgba(134,58,94,.18);
+      border-radius:28px;
+      padding:34px 24px;
+      transform:translateY(18px);
+      opacity:0;
+      pointer-events:none;
+      transition:.8s ease;
+    }
+
+    .card.show{
+      transform:translateY(0);
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .tiny{
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:.75rem;
+      opacity:.7;
+    }
+
+    h1{
+      font-size:clamp(2rem, 7vw, 4rem);
+      margin:12px 0 8px;
+      line-height:1.05;
+      color:var(--deep);
+      text-shadow:0 4px 16px rgba(217,79,138,.13);
+    }
+
+    .subtitle{
+      font-size:clamp(1rem, 2.7vw, 1.2rem);
+      line-height:1.7;
+      max-width:590px;
+      margin:0 auto;
+    }
+
+    .divider{
+      width:76px;
+      height:3px;
+      margin:24px auto;
+      border-radius:99px;
+      background:linear-gradient(90deg,transparent,var(--pink),transparent);
+    }
+
+    .buttons{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:12px;
+      margin-top:24px;
+    }
+
+    button{
+      border:0;
+      border-radius:999px;
+      padding:13px 20px;
+      font-size:1rem;
+      cursor:pointer;
+      transition:.22s ease;
+      font-weight:700;
+    }
+
+    button:hover{transform:translateY(-2px)}
+    button:active{transform:translateY(1px)}
+
+    .primary{
+      color:white;
+      background:linear-gradient(135deg,var(--pink),var(--deep));
+      box-shadow:0 10px 24px rgba(217,79,138,.25);
+    }
+
+    .secondary{
+      color:var(--deep);
+      background:#fff;
+      border:1px solid #ffd1e2;
+    }
+
+    .hidden-message{
+      max-height:0;
+      overflow:hidden;
+      opacity:0;
+      transition:.65s ease;
+      margin:0 auto;
+      max-width:590px;
+    }
+
+    .hidden-message.show{
+      max-height:400px;
+      opacity:1;
+      margin-top:24px;
+    }
+
+    .message-box{
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(255,126,182,.24);
+      border-radius:20px;
+      padding:20px;
+      line-height:1.8;
+      font-size:1.03rem;
+    }
+
+    .signature{
+      margin-top:24px;
+      font-weight:700;
+      color:var(--deep);
+    }
+
+    .footer{
+      margin-top:22px;
+      font-size:.86rem;
+      opacity:.65;
+    }
+
+    .burst-heart{
+      position:fixed;
+      z-index:10;
+      pointer-events:none;
+      animation:burst 1.1s ease-out forwards;
+    }
+
+    @keyframes burst{
+      from{transform:translate(0,0) scale(.7); opacity:1}
+      to{transform:translate(var(--x),var(--y)) scale(1.4); opacity:0}
+    }
+
+    @media (max-width:520px){
+      .card{padding:28px 18px}
+      .buttons{flex-direction:column}
+      button{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+  <div class="sparkles" id="sparkles"></div>
+
+  <main>
+    <div class="wrap">
+      <div class="envelope" id="envelope" aria-label="Open surprise">
+        <div class="letter-peek"></div>
+        <div class="env-body"></div>
+        <div class="flap"></div>
+      </div>
+      <div class="tap-note" id="tapNote">Tap the envelope 💌</div>
+
+      <section class="card" id="card">
+        <div class="tiny">A little something for you</div>
+        <h1>Hey, Hemangi 💗</h1>
+
+        <p class="subtitle">
+          I genuinely felt bad that I couldn’t help you with the Prime account.
+          So I thought I’d try to make you smile in a different way instead.
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="subtitle">
+          This is just a tiny reminder that you’re someone I really enjoy talking to,
+          and even the smallest conversations with you can make an ordinary day feel better.
+        </p>
+
+        <div class="buttons">
+          <button class="primary" id="revealBtn">Open the little surprise ✨</button>
+          <button class="secondary" id="smileBtn">Tap for a smile 😊</button>
+        </div>
+
+        <div class="hidden-message" id="hiddenMessage">
+          <div class="message-box">
+            I may not always be able to do everything you ask,
+            but I’ll always genuinely want to be there for you in whatever way I can.
+            <br><br>
+            And honestly… if this little page made you smile even for a second,
+            then it was completely worth making. 🌷
+          </div>
+          <div class="signature">— Rohit</div>
+        </div>
+
+        <div class="footer">Made with a little effort, a lot of overthinking, and a soft corner for you 💕</div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const card = document.getElementById('card');
+    const tapNote = document.getElementById('tapNote');
+    const revealBtn = document.getElementById('revealBtn');
+    const smileBtn = document.getElementById('smileBtn');
+    const hiddenMessage = document.getElementById('hiddenMessage');
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.add('open');
+      tapNote.textContent = 'For you 💗';
+      setTimeout(() => card.classList.add('show'), 450);
+      heartBurst(window.innerWidth / 2, window.innerHeight / 2, 18);
+    });
+
+    revealBtn.addEventListener('click', () => {
+      hiddenMessage.classList.toggle('show');
+      revealBtn.textContent = hiddenMessage.classList.contains('show')
+        ? 'That was the surprise 💗'
+        : 'Open the little surprise ✨';
+      heartBurst(revealBtn.getBoundingClientRect().left + revealBtn.offsetWidth/2,
+                 revealBtn.getBoundingClientRect().top + revealBtn.offsetHeight/2, 22);
+    });
+
+    const smileLines = [
+      'You look prettier when you smile 🌸',
+      'Mission: make Hemangi smile — hopefully successful 💗',
+      'Tiny reminder: you are very easy to care about ✨',
+      'Okay, this button officially owes you one smile 😊'
+    ];
+
+    let smileIndex = 0;
+    smileBtn.addEventListener('click', () => {
+      smileBtn.textContent = smileLines[smileIndex % smileLines.length];
+      smileIndex++;
+      heartBurst(smileBtn.getBoundingClientRect().left + smileBtn.offsetWidth/2,
+                 smileBtn.getBoundingClientRect().top + smileBtn.offsetHeight/2, 12);
+    });
+
+    function heartBurst(x, y, count){
+      const icons = ['💗','💕','✨','🌸'];
+      for(let i=0;i<count;i++){
+        const el = document.createElement('span');
+        el.className = 'burst-heart';
+        el.textContent = icons[Math.floor(Math.random()*icons.length)];
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
+        el.style.setProperty('--x', `${(Math.random()-.5)*260}px`);
+        el.style.setProperty('--y', `${(Math.random()-.65)*260}px`);
+        el.style.fontSize = `${14 + Math.random()*16}px`;
+        document.body.appendChild(el);
+        setTimeout(()=>el.remove(),1100);
+      }
+    }
+
+    const hearts = document.getElementById('hearts');
+    const heartChars = ['♡','♥','❀'];
+    for(let i=0;i<20;i++){
+      const h = document.createElement('span');
+      h.className = 'heart';
+      h.textContent = heartChars[Math.floor(Math.random()*heartChars.length)];
+      h.style.left = `${Math.random()*100}%`;
+      h.style.fontSize = `${14 + Math.random()*22}px`;
+      h.style.animationDuration = `${9 + Math.random()*10}s`;
+      h.style.animationDelay = `${-Math.random()*14}s`;
+      h.style.color = Math.random() > .5 ? '#ff7eb6' : '#ffffff';
+      hearts.appendChild(h);
+    }
+
+    const sparkles = document.getElementById('sparkles');
+    for(let i=0;i<26;i++){
+      const s = document.createElement('span');
+      s.className = 'spark';
+      s.style.left = `${Math.random()*100}%`;
+      s.style.top = `${Math.random()*100}%`;
+      s.style.animationDelay = `${Math.random()*2.3}s`;
+      s.style.animationDuration = `${1.7 + Math.random()*2.2}s`;
+      sparkles.appendChild(s);
+    }
+  </script>
+</body>
+</html>
